@@ -1,106 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Teka-Teki Pilihan Ganda</title>
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <!-- jQuery -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <!-- Bootstrap JS -->
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        .question {
+            margin: 20px 0;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 30px;
+            cursor: pointer;
+            user-select: none;
+        }
+        label input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+        label .option {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 20px;
+            width: 20px;
+            background-color: #ccc;
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
+        }
+        label input:checked ~ .option {
+            background-color: #2196F3;
+        }
+        #submit {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #submit:hover {
+            background-color: #45a049;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-  <div class="container mt-5">
-    <h1 class="mb-4">Teka-Teki Pilihan Ganda</h1>
-    
-    <!-- Teka-teki pilihan ganda -->
-    <form id="quizForm">
-      <div class="card mb-3">
-        <div class="card-body">
-          <h5 class="card-title">1. Apa ibu kota Indonesia?</h5>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="question1" id="q1option1" value="Jakarta">
-            <label class="form-check-label" for="q1option1">
-              Jakarta
-            </label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="question1" id="q1option2" value="Surabaya">
-            <label class="form-check-label" for="q1option2">
-              Surabaya
-            </label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="question1" id="q1option3" value="Bandung">
-            <label class="form-check-label" for="q1option3">
-              Bandung
-            </label>
-          </div>
+    <div class="container">
+        <h1>Quiz 1</h1>
+        <div class="quiz" id="quiz1">
+            <div class="question">
+                <p>1. What is the capital of France?</p>
+                <label><input type="radio" name="q1" class="option" data-points="0"> <span class="option"></span> London</label>
+                <label><input type="radio" name="q1" class="option" data-points="1"> <span class="option"></span> Paris</label>
+                <label><input type="radio" name="q1" class="option" data-points="0"> <span class="option"></span> Rome</label>
+            </div>
+            <div class="question">
+                <p>2. What is 2 + 2?</p>
+                <label><input type="radio" name="q2" class="option" data-points="1"> <span class="option"></span> 4</label>
+                <label><input type="radio" name="q2" class="option" data-points="0"> <span class="option"></span> 22</label>
+                <label><input type="radio" name="q2" class="option" data-points="0"> <span class="option"></span> 5</label>
+            </div>
         </div>
-      </div>
 
-      <div class="card mb-3">
-        <div class="card-body">
-          <h5 class="card-title">2. Siapakah presiden Indonesia saat ini?</h5>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="question2" id="q2option1" value="Joko Widodo">
-            <label class="form-check-label" for="q2option1">
-              Joko Widodo
-            </label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="question2" id="q2option2" value="Susilo Bambang Yudhoyono">
-            <label class="form-check-label" for="q2option2">
-              Susilo Bambang Yudhoyono
-            </label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="question2" id="q2option3" value="Megawati Soekarnoputri">
-            <label class="form-check-label" for="q2option3">
-              Megawati Soekarnoputri
-            </label>
-          </div>
+        <h1>Quiz 2</h1>
+        <div class="quiz" id="quiz2">
+            <div class="question">
+                <p>1. What is the chemical symbol for water?</p>
+                <label><input type="radio" name="q3" class="option" data-points="1"> <span class="option"></span> H2O</label>
+                <label><input type="radio" name="q3" class="option" data-points="0"> <span class="option"></span> CO2</label>
+                <label><input type="radio" name="q3" class="option" data-points="0"> <span class="option"></span> NaCl</label>
+            </div>
+            <div class="question">
+                <p>2. What planet is known as the Red Planet?</p>
+                <label><input type="radio" name="q4" class="option" data-points="0"> <span class="option"></span> Earth</label>
+                <label><input type="radio" name="q4" class="option" data-points="1"> <span class="option"></span> Mars</label>
+                <label><input type="radio" name="q4" class="option" data-points="0"> <span class="option"></span> Jupiter</label>
+            </div>
         </div>
-      </div>
-
-      <!-- Add more questions similarly -->
-      
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-    
-    <!-- Hasil penilaian -->
-    <div id="quizResults" class="mt-4" style="display: none;">
-      <h3>Hasil Penilaian</h3>
-      <div id="results"></div>
+        
+        <button id="submit">Submit</button>
+        <div id="result"></div>
     </div>
-  </div>
-
-  <!-- Script JavaScript -->
-  <script>
-    // Script untuk menangani pengiriman formulir dan penilaian
-    $('#quizForm').on('submit', function(event) {
-      event.preventDefault();
-      // Hitung skor
-      var score = 0;
-
-      // Penilaian pertanyaan 1
-      if ($('input[name=question1]:checked', '#quizForm').val() === 'Jakarta') {
-        score += 10;
-      }
-
-      // Penilaian pertanyaan 2
-      if ($('input[name=question2]:checked', '#quizForm').val() === 'Joko Widodo') {
-        score += 10;
-      }
-
-      // Tampilkan hasil
-      $('#results').html('<p>Skor Anda: ' + score + '</p>');
-
-      // Tampilkan area hasil
-      $('#quizResults').show();
-    });
-  </script>
+    <script>
+        document.getElementById('submit').addEventListener('click', function() {
+            const radios = document.querySelectorAll('input[type="radio"]');
+            let totalPoints = 0;
+            
+            radios.forEach(function(radio) {
+                if (radio.checked) {
+                    totalPoints += parseInt(radio.getAttribute('data-points'));
+                }
+            });
+            
+            document.getElementById('result').innerText = 'Total Points: ' + totalPoints;
+        });
+    </script>
 </body>
 </html>
