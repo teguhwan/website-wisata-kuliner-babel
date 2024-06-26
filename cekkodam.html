@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cek Khodam</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-top: 10px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            margin-top: 5px;
+            font-size: 16px;
+        }
+        #submit {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        #submit:hover {
+            background-color: #45a049;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Cek Khodam</h1>
+        <form id="khodamForm">
+            <label for="name">Nama:</label>
+            <input type="text" id="name" name="name" required>
+            <button type="button" id="submit" class="btn btn-success">Submit</button>
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <!-- Bootstrap JS (Optional, if you need other Bootstrap components) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+    <script>
+        let canCheck = true;
+
+        document.getElementById('submit').addEventListener('click', function() {
+            if (!canCheck) {
+                showAlert("Anda hanya bisa melakukan cek sekali setiap 5 detik.", "warning");
+                return;
+            }
+
+            const name = document.getElementById('name').value;
+
+            // Array 200 khodam lucu
+            const khodamList = [
+                'Si Kambing Gembul', 'Buaya Latah', 'Monyet Ketawa', 'Srigala Gugup',
+                'Kucing Kepleset', 'Ikan Kelelawar', 'Katak Kocak', 'Ayam Kalong',
+                'Belalang Suka Lompat', 'Keong Rakus', 'Kudanil Kedut-kedutan', 'Kancil Latah',
+                'Gajah Kekenyangan', 'Kelinci Kedinginan', 'Pinguin Manja', 'Koala Tertidur',
+                'Burung Gagal Terbang', 'Cicak Tergopoh-gopoh', 'Semut Lengket', 'Ular Lemas',
+                'Kadal Sombong', 'Kepiting Kocak', 'Lumba-lumba Selalu Tersenyum', 'Cendrawasih Malu-malu',
+                'Kakatua Bicara Sendiri', 'Macan Tidur Pulas', 'Orangutan Ceroboh', 'Badak Mengantuk',
+                'Banteng Tersenyum', 'Kerbau Kepalang', 'Gorila Cengengesan', 'Anjing Tidur Nyenyak',
+                'Harimau Kelewat Malu', 'Siamang Lugu', 'Rusa Bingung', 'Burung Hantu Bengong',
+                'Singa Bimbang', 'Jerapah Kebingungan', 'Kuda Poni Gagal Loncat', 'Bebek Tertawa',
+                'Merak Menggoda', 'Nuri Lupa Dirinya', 'Elang Ketawa', 'Angsa Tertidur',
+                'Ayam Berdiri Diam', 'Anggora Sombong', 'Beo Suara Sepi', 'Cucakrowo Cuek',
+                'Gereja Nyanyi Sendiri', 'Gelatik Sibuk Nyanyi', 'Jalak Suka Lupa', 'Kacer Ceroboh',
+                'Kenari Kebingungan', 'Lovebird Kelaparan', 'Murai Batu Sibuk', 'Pleci Malas-malasan',
+                'Podang Santai', 'Trucukan Ngantuk', 'Bunglon Malu-malu', 'Biawak Terkesima',
+                'Buaya Tidur Panjang', 'Cicak Tertawa', 'Iguana Kepleset', 'Kadal Bingung',
+                'Kura-kura Kelaparan', 'Ular Pura-pura Tidur', 'Ikan Tertawa', 'Kerapu Malu-malu',
+                'Kepiting Santai', 'Lobster Bimbang', 'Lumut Goyang', 'Belut Kocak',
+                'Siput Tidur Panjang', 'Cacing Bingung', 'Katak Ceria', 'Kepik Galak',
+                'Lebah Santai', 'Kecoak Cerewet', 'Semut Santai', 'Kutu Tertawa',
+                'Lintah Malu-malu', 'Nyamuk Ceria', 'Lalat Malas-malasan', 'Kupu-kupu Terbang Terbang',
+                'Ngengat Malu-malu', 'Kumbang Pemalu', 'Kecoa Malas', 'Capung Ceria',
+                'Labalaba Malu-malu', 'Kalajengking Terkendali', 'Laba-laba Ngantuk', 'Laba-laba Malas',
+                'Laba-laba Pemalu', 'Laba-laba Pemalu', 'Laba-laba Ngantuk', 'Labalaba Malu-malu',
+                'Capung Ceria', 'Kecoa Malas', 'Kumbang Pemalu', 'Ngengat Malu-malu',
+                'Kupu-kupu Terbang Terbang', 'Lalat Malas-malasan', 'Nyamuk Ceria', 'Lintah Malu-malu',
+                'Kutu Tertawa', 'Semut Santai', 'Kecoak Cerewet', 'Lebah Santai',
+                'Kepik Galak', 'Katak Ceria', 'Cacing Bingung', 'Siput Tidur Panjang',
+                'Belut Kocak', 'Lumut Goyang', 'Lobster Bimbang', 'Kepiting Santai',
+                'Kerapu Malu-malu', 'Ikan Tertawa', 'Ular Pura-pura Tidur', 'Kura-kura Kelaparan',
+                'Kadal Bingung', 'Iguana Kepleset', 'Cicak Tertawa', 'Buaya Tidur Panjang',
+                'Biawak Terkesima', 'Bunglon Malu-malu', 'Trucukan Ngantuk', 'Podang Santai',
+                'Pleci Malas-malasan', 'Murai Batu Sibuk', 'Lovebird Kelaparan', 'Kenari Kebingungan',
+                'Kacer Ceroboh', 'Gelatik Sibuk Nyanyi', 'Gereja Nyanyi Sendiri', 'Angsa Tertidur',
+                'Beo Suara Sepi', 'Anggora Sombong', 'Ayam Berdiri Diam', 'Nuri Lupa Dirinya',
+                'Merak Menggoda', 'Bebek Tertawa', 'Kuda Poni Gagal Loncat', 'Jerapah Kebingungan',
+                'Singa Bimbang', 'Burung Hantu Bengong', 'Rusa Bingung', 'Siamang Lugu',
+                'Harimau Kelewat Malu', 'Anjing Tidur Nyenyak', 'Gorila Cengengesan', 'Kerbau Kepalang',
+                'Banteng Tersenyum', 'Badak Mengantuk', 'Orangutan Ceroboh', 'Macan Tidur Pulas',
+                'Kakatua Bicara Sendiri', 'Cendrawasih Malu-malu', 'Ular Lemas', 'Semut Lengket',
+                'Cicak Tergopoh-gopoh', 'Burung Gagal Terbang', 'Koala Tertidur', 'Pinguin Manja',
+                'Kelinci Kedinginan', 'Gajah Kekenyangan', 'Kancil Latah', 'Keong Rakus',
+                'Belalang Suka Lompat', 'Ayam Kalong', 'Katak Kocak', 'Monyet Ketawa',
+                'Buaya Latah', 'Si Kambing Gembul'
+            ];
+
+            // Ambil indeks secara acak dari array khodamList
+            const randomIndex = Math.floor(Math.random() * khodamList.length);
+
+            // Tampilkan hasil khodam yang terpilih
+            const resultElement = document.getElementById('result');
+            resultElement.textContent = `Halo, ${name}! Khodam kamu hari ini adalah "${khodamList[randomIndex]}".`;
+
+            // Set timeout untuk mencegah cek berulang dalam waktu yang singkat
+            canCheck = false;
+            setTimeout(function() {
+                canCheck = true;
+            }, 5000); // 5000 milidetik = 5 detik
+        });
+
+        function showAlert(message, type) {
+            // Buat elemen alert
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type} alert-dismissible fade show`;
+            alert.setAttribute('role', 'alert');
+            alert.innerHTML = `
+                ${message}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            `;
+
+            // Tambahkan alert ke dalam container
+            const container = document.querySelector('.container');
+            container.insertBefore(alert, container.firstChild);
+
+            // Hilangkan alert setelah beberapa detik
+            setTimeout(function() {
+                alert.remove();
+            }, 5000); // Hilangkan setelah 5 detik
+        }
+    </script>
+</body>
+</html>
